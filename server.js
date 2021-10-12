@@ -1,22 +1,20 @@
 //require modules
-const express = require('express');
-const path = require('path');
+const express = require('express'); //express npm package
+const path = require('path'); // Node.js native utility module
 
 //set express as variable to use easily later in code
 const app = express();
 //set up server on port 3001
 const PORT = process.env.port || 3001;
 
-//import routers
+//import routers and set to variables
 const routes = require('./routes/apiRoutes');
 const routes2 = require('./routes/htmlRoutes');
 
 //Middleware used for parsing JSON data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-//static file in public folder
-app.use(express.static('public'));
+app.use(express.static('public'));  //static file in public folder
 
 //use router
 app.use('/api', routes);
