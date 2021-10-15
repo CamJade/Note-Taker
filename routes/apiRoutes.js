@@ -1,6 +1,7 @@
 //commonJS syntax to import uuid --universally unique identifier
 const { v4: uuidv4 } = require('uuid');
 
+const fs = require('fs');
 //save path in variable to use easily
 const dataPath = require("../db/db.json");
 
@@ -16,6 +17,8 @@ module.exports = (app) => {
     app.post("/api/notes", (req, res) => {
         req.body["id"] = {v4: uuidv4()}; //get unique id from uuid
         dataPath.push(req.body) //add it to the `db.json` file
+        console.log(dataPath);
+        fs.writeFileSync("db/db.json", JSON.stringify(dataPath)); //write to db.json file with notes
         res.json(true); //return the new note to the client
     })
 
@@ -31,32 +34,8 @@ module.exports = (app) => {
         const id = (value) => 
         value.id === req.params.id;
         dataPath.splice(dataPath.findIndex(id), 1);
+        fs.writeFileSync("db/db.json", JSON.stringify(dataPath)); //takes note data out of db.json when deleted in app
         res.json(dataPath);
     })
 
 };
-
-// //need to retrieve notes
-// router.get('/', (req, res) => {
-//     fs.readFile('./db/db.json', (err, data)=> {
-//         if (err) throw err;
-//         res.json(JSON.parse(data));
-//     })
-// });
-
-// //post notes -- need error if empty and template
-// router.post('/', (req, res) => {
-//     const {title, text} = req.body;
-//     const currentNote = {
-//         title,
-//         text,
-//         id: uuidv4() //unique id
-//     };
-//     fs.promises.readFile('./db/db.json')
-//         .then(data => {
-//             const note = JSON.parse(data);
-//             note.push(currentNote);
-//             return fs.promises.writeFile('./db/db.json', JSON.stringify(note));
-//         });
-
-// })
