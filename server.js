@@ -21,6 +21,7 @@ app.use(express.static('public'));  //static file in public folder
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
+//move these to route files
 // //route to GET home(index)
 // app.get('/', (req, res) => 
 //     res.sendFile(path.join(__dirname, '/public/index.html'))
