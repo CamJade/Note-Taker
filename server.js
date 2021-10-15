@@ -3,8 +3,8 @@ const express = require('express'); //express npm package
 
 //set express as variable to use easily later in code
 const app = express();
-//set up server on port 3001
-const PORT = process.env.port || 3002;
+//set up server on port 3002
+const PORT = process.env.PORT || 3002;
 
 // //import routers and set to variables
 // const routes = require('./routes/apiRoutes');
